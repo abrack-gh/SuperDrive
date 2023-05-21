@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.2/css/bootstrap.min.css}"/>
+
+    <title>File Storage</title>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row mt-5">
+        <div class="col-2">
+            <p>
+                <a class="btn-outline-warning" href="/">
+                    <i class="bi bi-arrow-left-square-fill"></i>Back</a>
+            </p>
+        </div>
+        <div class="col-6">
+            <h2>Add new File</h2>
+            <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+            <form method="post" th:action="@{/upload}" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="image" accept="image/*" class="form-control-file">
+                </div>
+                <button type="submit" class="btn btn-primary">Upload image</button>
+            </form>
+            <span th:if="${msg != null}" th:text="${msg}"></span>
+        </div>
+    </div>
+
+</div>
+<script th:src="@{webjars/bootstrap/5.2.2/js/bootstrap.min.js}"></script>
+
+</body>
+
+</html>
