@@ -1,7 +1,7 @@
 package com.SuperDrive.SuperDrive.controller;
 
-import com.SuperDrive.SuperDrive.model.FileItem;
 import com.SuperDrive.SuperDrive.service.FileItemService;
+import com.SuperDrive.SuperDrive.service.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,21 +23,31 @@ public class FileUploadController {
     @Autowired
     private FileItemService fileItemService;
 
+    @Autowired
+    FileUploadService fileUploadService;
+
     @GetMapping("/upload")
     public String showUploadFile(){
         return "upload";
     }
 
+//    @PostMapping("/upload")
+//    public String upload(Model model, @RequestParam("file") MultipartFile multipartFile) throws IOException {
+//
+//        StringBuilder fileNames = new StringBuilder();
+//        Path fileNameAndPath = Paths.get(uploadDirectory, multipartFile.getOriginalFilename());
+//        fileNames.append(multipartFile.getOriginalFilename());
+//        Files.write(fileNameAndPath, multipartFile.getBytes());
+//        model.addAttribute("msg", "Uploaded: " + fileNames.toString());
+//
+//        return "index";
+//    }
+
     @PostMapping("/upload")
-    public String upload(Model model, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+    public String imageUpload(@RequestParam MultipartFile img){
+        System.out.println(img.getOriginalFilename());
 
-        StringBuilder fileNames = new StringBuilder();
-        Path fileNameAndPath = Paths.get(uploadDirectory, multipartFile.getOriginalFilename());
-        fileNames.append(multipartFile.getOriginalFilename());
-        Files.write(fileNameAndPath, multipartFile.getBytes());
-        model.addAttribute("msg", "Uploaded: " + fileNames.toString());
-
-        return "index";
+        return "redirect:/";
     }
 
 }
