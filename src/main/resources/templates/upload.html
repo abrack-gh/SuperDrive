@@ -22,12 +22,25 @@
         <div class="col-6">
             <h2>Add new File</h2>
             <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
-            <form action="imageUpload" enctype="multipart/form-data" method="post">
+
+            <form action="#" th:action="@{/upload}" th:object="${fileItem}" method="POST">
                 <div class="form-group">
+                    <label for="description">Description</label>
+                    <input class="form-control"
+                           type="text"
+                           th:field="*{description}"
+                           id="description"
+                           placeholder="Description"
+                    >
                     <input type="file" name="img" class="form-control">
+
+                    <button type="submit" class="btn btn-outline-success">
+                        <i class="bi bi-plus-square-fill"></i> Add Todo
+                    </button>
+
                 </div>
-                <button type="submit" class="btn btn-primary">Upload image</button>
             </form>
+
         </div>
     </div>
 

@@ -14,19 +14,17 @@ import java.time.Instant;
 public class FileItem implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String description;
+    private String profilePicture;
+
+    private Long size;
+
+    private byte[] content;
 
     private Instant createdAt;
 
     private Instant updatedAt;
-
-    @Override
-    public String toString(){
-        return String.format("FileItem{id=%d, description='%s', createdAt='%s', updatedAt='%s}",
-                id, description, createdAt, updatedAt);
-    }
 
 }

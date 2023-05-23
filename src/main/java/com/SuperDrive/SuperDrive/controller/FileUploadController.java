@@ -1,5 +1,6 @@
 package com.SuperDrive.SuperDrive.controller;
 
+import com.SuperDrive.SuperDrive.model.FileItem;
 import com.SuperDrive.SuperDrive.service.FileItemService;
 import com.SuperDrive.SuperDrive.service.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Controller
 public class FileUploadController {
@@ -43,11 +45,26 @@ public class FileUploadController {
 //        return "index";
 //    }
 
-    @PostMapping("/upload")
-    public String imageUpload(@RequestParam MultipartFile img){
-        System.out.println(img.getOriginalFilename());
+    @GetMapping("/")
+    public String home(Model model){
+        List<FileItem> list = fileUploadService.getAllFiles();
+        model.addAttribute("list", list);
 
-        return "redirect:/";
+        return "index";
+    }
+
+
+    @PostMapping("/upload")
+    public String fileUpload(@RequestParam("file") MultipartFile file, Model model) throws IOException {
+
+        FileItem fileItem = new FileItem();
+        String fileName = file.getOriginalFilename();
+        fileItem.setContent(file.getBytes());
+        fileItem.setSize(file.getSize());
+        fileUploadService.uploadFile(fileItem);
+        model.addAttribute("success", "File uploaded.");
+
+        return "index";
     }
 
 }
